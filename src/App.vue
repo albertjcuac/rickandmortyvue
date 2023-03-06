@@ -7,9 +7,9 @@
       <h2>Filters</h2>
       <span>Status</span>
       <ul class="filters">
-        <li class="filter"><label>Alive<input name="filter" type="checkbox"></label></li>
-        <li class="filter"><label>Dead<input name="dead" type="checkbox"></label></li>
-        <li class="filter"><label>Unknown<input name="unknown" type="checkbox"></label></li>
+        <li v-for="filter in filters" class="filter"><label>{{filter}}<input name="filter" type="checkbox"></label></li>
+
+
       </ul>
     </aside>
     <main>
@@ -26,7 +26,9 @@ export default {
   components: {CharacterCard},
   data() {
     return {
-      characters: []
+      characters: [],
+      filters: [],
+
     };
   },
   methods: {
@@ -34,7 +36,18 @@ export default {
       const query = event.target.value;
       fetch('https://rickandmortyapi.com/api/character/?name=' + query).then(response => response.json())
           .then(data => {
+
             this.characters = data.results;
+            let visibleStatus = new Set()
+
+            for (let character of this.characters) {
+              visibleStatus.add(character.status)
+
+            }
+            let statusList = [...visibleStatus];
+            statusList.sort()
+            this.filters=statusList
+
           });
     }
   }
