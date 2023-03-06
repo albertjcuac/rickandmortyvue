@@ -14,18 +14,16 @@
     </aside>
     <main>
       <section class="characters">
-        <article v-for="character in characters" v-bind:key="character.id" class="character">
-          <img class="character__image" v-bind:alt="'character image of'+character.name" v-bind:src="character.image">
-          <div class="description"> {{ character.name }}
-            <div v-bind:class="['status',character.status.toLowerCase()]">{{ character.status }}</div>
-          </div>
-        </article>
+        <CharacterCard v-for="character in characters" v-bind:character="character">  </CharacterCard>
       </section>
     </main>
   </div>
 </template>
 <script lang="js">
+import CharacterCard from "@/components/CharacterCard.vue";
+
 export default {
+  components: {CharacterCard},
   data() {
     return {
       characters: []
@@ -60,36 +58,7 @@ export default {
 
 }
 
-.character {
-  display: flex;
-  flex-flow: column;
-  width: 250px;
-  height: 350px;
-  border: 1px solid black;
-}
 
-.description {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.status {
-  padding: 5px;
-  color: white;
-}
-
-.alive {
-  background: green;
-}
-
-.dead {
-  background: red;
-}
-
-.unknown {
-  background: gray;
-}
 
 .filters {
   width: 120px;
