@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       characters: [],
-      filters: [],
+
 
     };
   },
@@ -38,20 +38,29 @@ export default {
           .then(data => {
 
             this.characters = data.results;
-            let visibleStatus = new Set()
 
-            for (let character of this.characters) {
-              visibleStatus.add(character.status)
-
-            }
-            let statusList = [...visibleStatus];
-            statusList.sort()
-            this.filters=statusList
 
           });
     }
+  },
+  computed:{
+    filters(){
+      let visibleStatus = new Set()
+
+      for (let character of this.characters) {
+        visibleStatus.add(character.status)
+
+      }
+      let statusList = [...visibleStatus];
+      statusList.sort()
+      return statusList
+
+    }
+
   }
+
 };
+
 </script>
 <style scoped>
 .header {
