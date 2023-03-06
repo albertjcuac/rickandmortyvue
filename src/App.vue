@@ -1,5 +1,4 @@
 <template>
-
   <header class="header">
     <input class="search" placeholder="Search for a character" @input="search"/>
   </header>
@@ -15,54 +14,10 @@
     </aside>
     <main>
       <section class="characters">
-        <article class="character">character 1
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 2
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 3
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 4
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 5
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 6
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 7
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 8
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 9
-          <div class="description">example
-            <div class="status alive">alive</div>
-          </div>
-        </article>
-        <article class="character">character 10
-          <div class="description">example
-            <div class="status alive">alive</div>
+        <article v-for="character in characters" v-bind:key="character.id" class="character">
+          <img class="character__image" v-bind:alt="'character image of'+character.name" v-bind:src="character.image">
+          <div class="description"> {{ character.name }}
+            <div v-bind:class="['status',character.status.toLowerCase()]">{{ character.status }}</div>
           </div>
         </article>
       </section>
@@ -82,7 +37,6 @@ export default {
       fetch('https://rickandmortyapi.com/api/character/?name=' + query).then(response => response.json())
           .then(data => {
             this.characters = data.results;
-            console.log(this.characters);
           });
     }
   }
