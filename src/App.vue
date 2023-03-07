@@ -9,7 +9,7 @@
       <ul class="filters">
         <li v-for="filter in filters" class="filter">
           <label>
-            {{ filter }}<input type="radio" :value="filter" v-model="selectedFilter">
+            <FilterInput v-bind:filter="filter" @status="applyFilter"> </FilterInput>
           </label>
         </li>
       </ul>
@@ -26,8 +26,9 @@
 import CharacterCard from "@/components/CharacterCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
+import FilterInput from "@/components/FilterInput.vue";
 export default {
-  components: {BaseGrid, SearchInput, CharacterCard},
+  components: {FilterInput, BaseGrid, SearchInput, CharacterCard},
   data() {
     return {
       characters: [],
@@ -38,7 +39,9 @@ export default {
     };
   },
   watch: {
-
+    query(){
+      this.applyFilter()
+    },
     selectedFilter() {
       this.search();
     }
@@ -63,6 +66,9 @@ export default {
               this.visibleCharacters = data.results;
             });
       }
+    },
+    applyFilter(event) {
+      this.selectedFilter = event.target.value;
     }
 
   },
