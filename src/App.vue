@@ -15,9 +15,9 @@
       </ul>
     </aside>
     <main>
-      <section class="characters">
+      <BaseGrid>
         <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
-      </section>
+      </BaseGrid>
     </main>
   </div>
 </template>
@@ -25,8 +25,9 @@
 <script lang="js">
 import CharacterCard from "@/components/CharacterCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
+import BaseGrid from "@/components/BaseGrid.vue";
 export default {
-  components: {SearchInput, CharacterCard},
+  components: {BaseGrid, SearchInput, CharacterCard},
   data() {
     return {
       characters: [],
@@ -47,22 +48,22 @@ export default {
       if (event && event.target) {
         this.query = event.target.value;
       }
-        let url = this.apiUrl + '?name=' + this.query;
-        if (this.selectedFilter === 'all') {
-          fetch(url)
-              .then(response => response.json())
-              .then(data => {
-                this.visibleCharacters = data.results;
-                this.characters = data.results;
-              });
-        } else {
-          fetch(url + `&status=` + this.selectedFilter)
-              .then(response => response.json())
-              .then(data => {
-                this.visibleCharacters = data.results;
-              });
-        }
+      let url = this.apiUrl + '?name=' + this.query;
+      if (this.selectedFilter === 'all') {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              this.visibleCharacters = data.results;
+              this.characters = data.results;
+            });
+      } else {
+        fetch(url + `&status=` + this.selectedFilter)
+            .then(response => response.json())
+            .then(data => {
+              this.visibleCharacters = data.results;
+            });
       }
+    }
 
   },
   computed:{
@@ -89,14 +90,9 @@ export default {
   justify-content: center;
 }
 
-.characters {
-  display: flex;
-  flex-flow: row wrap;
-  list-style-type: none;
-  gap: 12px;
-}
+
 .filters {
-  width: 120px;
+  width: 8rem;
   list-style-type: none;
 }
 .filter:hover {

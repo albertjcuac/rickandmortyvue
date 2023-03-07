@@ -1,7 +1,7 @@
 <template>
-  <header class="header">
+
     <input class="search" placeholder="Search for a character" @input="search"/>
-  </header>
+
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
 
 <style>
 .search {
-  width: 600px;
+  width: 20rem;
 }
 </style>
 
