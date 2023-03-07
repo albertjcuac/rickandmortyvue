@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <input class="search" placeholder="Search for a character" @input="search($event)"/>
+    <search-input @input="search"></search-input>
   </header>
   <div class="container">
     <aside class="facets">
@@ -24,8 +24,9 @@
 
 <script lang="js">
 import CharacterCard from "@/components/CharacterCard.vue";
+import SearchInput from "@/components/SearchInput.vue";
 export default {
-  components: {CharacterCard},
+  components: {SearchInput, CharacterCard},
   data() {
     return {
       characters: [],
@@ -87,9 +88,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.search {
-  width: 600px;
-}
+
 .characters {
   display: flex;
   flex-flow: row wrap;
