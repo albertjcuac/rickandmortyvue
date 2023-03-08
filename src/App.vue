@@ -17,6 +17,7 @@
     <main>
       <BaseGrid>
         <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
+        <h1 v-show=nothing>Nothing Found</h1>
       </BaseGrid>
     </main>
   </div>
@@ -35,7 +36,9 @@ export default {
       selectedFilter: 'all',
       apiUrl:'https://rickandmortyapi.com/api/character/',
       query:'',
-      visibleCharacters:[]
+      visibleCharacters:[],
+
+
     };
   },
   watch: {
@@ -47,46 +50,71 @@ export default {
     }
   },
   methods: {
+
     search(event) {
+
       if (event && event.target) {
         this.query = event.target.value;
       }
       let url = this.apiUrl + '?name=' + this.query;
+      this.visibleCharacters = [];
+
       if (this.selectedFilter === 'all') {
         fetch(url)
             .then(response => response.json())
             .then(data => {
               this.visibleCharacters = data.results;
               this.characters = data.results;
+
             });
       } else {
         fetch(url + `&status=` + this.selectedFilter)
             .then(response => response.json())
             .then(data => {
               this.visibleCharacters = data.results;
+
             });
       }
     },
     applyFilter(event) {
-      this.selectedFilter = event.target.value;
+      if (event && event.target) {
+        this.selectedFilter = event.target.value;
+      }
+
     }
+
+
 
   },
   computed:{
     filters(){
       let visibleStatus = new Set()
-      for (let character of this.characters) {
-        visibleStatus.add(character.status)
+      let statusList;
+      if(typeof this.characters!=='undefined'){
+        for (let character of this.characters) {
+          visibleStatus.add(character.status)
+        }
+       statusList = [...visibleStatus];
+        statusList.sort()
+        if(this.characters.length!==0){
+          statusList.push('all')
+        }
       }
-      let statusList = [...visibleStatus];
-      statusList.sort()
-      if(this.characters.length!==0){
-        statusList.push('all')
+      else{
+        statusList=[]
       }
 
       return statusList
     },
+    nothing(){
+      let nothing=false;
+      if(this.visibleCharacters.length===0){
+        nothing=true;
+      }
+      return nothing;
+    }
   },
+
 };
 </script>
 
