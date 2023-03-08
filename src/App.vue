@@ -116,11 +116,13 @@ export default {
 
       return statusList
     },
-    nothing(){
-      let nothing=false;
-      if(this.characters.length===0){
-        nothing=true;
-      }
+    nothing() {
+      let nothing = true;
+      setTimeout(() => {
+        if (this.visibleCharacters.length !== 0) {
+          nothing = false;
+        }
+      }, 100);
       return nothing;
     }
   },
