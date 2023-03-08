@@ -118,11 +118,10 @@ export default {
     },
     nothing() {
       let nothing = true;
-      setTimeout(() => {
         if (this.visibleCharacters.length !== 0) {
           nothing = false;
         }
-      }, 100);
+
       return nothing;
     }
   },
