@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <search-input @input="search"></search-input>
+    <search-input @input="debouncedSearch"></search-input>
   </header>
   <div class="container">
     <aside class="facets">
@@ -28,8 +28,10 @@ import CharacterCard from "@/components/CharacterCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
 import FilterInput from "@/components/FilterInput.vue";
+
 export default {
   components: {FilterInput, BaseGrid, SearchInput, CharacterCard},
+
   data() {
     return {
       characters: [],
@@ -39,6 +41,7 @@ export default {
       visibleCharacters:[],
 
 
+
     };
   },
   watch: {
@@ -46,13 +49,12 @@ export default {
       this.applyFilter()
     },
     selectedFilter() {
-      this.search();
+      this.debouncedSearch();
     }
   },
   methods: {
 
     search(event) {
-
       if (event && event.target) {
         this.query = event.target.value;
       }
@@ -81,7 +83,15 @@ export default {
         this.selectedFilter = event.target.value;
       }
 
-    }
+    },
+    debouncedSearch(event) {
+      const self = this;
+      clearTimeout(self.searchTimeout);
+
+      self.searchTimeout = setTimeout(() => {
+        self.search(event); // Pasar el evento a la función search
+      }, 400);
+    },
 
 
 
@@ -108,7 +118,7 @@ export default {
     },
     nothing(){
       let nothing=false;
-      if(this.visibleCharacters.length===0){
+      if(this.characters.length===0){
         nothing=true;
       }
       return nothing;
