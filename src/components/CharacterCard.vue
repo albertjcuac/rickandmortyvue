@@ -21,14 +21,20 @@ export default {
   width: 250px;
   height: 350px;
   border: 1px solid black;
+  background-color: whitesmoke;
+  border-radius: 50px;
 }
 
 .description {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
+}
+.character__image {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
 .status {
   padding: 5px;
   color: white;

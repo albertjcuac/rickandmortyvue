@@ -1,27 +1,32 @@
 <template>
-  <header class="header">
-    <h1 class="rickStyle">Rick and Morty Character Search</h1>
-    <search-input @input="debouncedSearch"></search-input>
-  </header>
-  <div class="container">
-    <aside class="facets">
-      <h2>Filters</h2>
-      <span>Status</span>
-      <ul class="filters">
-        <li v-for="filter in filters" class="filter">
-          <label>
-            <FilterInput v-bind:filter="filter" @status="applyFilter"> </FilterInput>
-          </label>
-        </li>
-      </ul>
-    </aside>
-    <main>
-      <BaseGrid>
-        <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
-        <h3 class=nothingFound v-show=nothing>Nothing Found</h3>
-      </BaseGrid>
-    </main>
-  </div>
+  <body>
+    <header class="header">
+      <h1 class="rickStyle">Rick and Morty Character Search</h1>
+      <search-input @input="debouncedSearch"></search-input>
+    </header>
+    <div class="container">
+
+      <aside class="facets">
+        <h2>Filters</h2>
+        <span>Status</span>
+        <ul class="filters">
+          <li v-for="filter in filters" class="filter">
+            <label>
+              <FilterInput v-bind:filter="filter" @status="applyFilter"> </FilterInput>
+            </label>
+          </li>
+        </ul>
+      </aside>
+      <main>
+        <BaseGrid>
+          <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
+          <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
+
+        </BaseGrid>
+      </main>
+
+    </div>
+  </body>
 </template>
 
 <script lang="js">
@@ -55,7 +60,6 @@ export default {
     }
   },
   mounted(){
-    // invocar los métodos
     this.search();
   },
   methods: {
@@ -137,6 +141,7 @@ export default {
 </script>
 
 <style scoped>
+
 .header {
   display: flex;
   justify-content: space-around;
@@ -144,6 +149,7 @@ export default {
   flex-direction: column;
   margin-bottom: 2rem;
   margin-top: 2rem;
+
 }
 
 .rickStyle {
@@ -196,16 +202,27 @@ export default {
 .container {
   display: flex;
 }
-.nothingFound{
+.nothingFound {
+  font-size: 1.5rem;
   margin-left: 30rem;
-  color:gray;
+  color: gray;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
 
+.nothingFound.hide {
+  opacity: 0;
 }
 
 @media screen and (max-width: 767px) {
   .container {
     display: flex;
     flex-direction: column;
+
+  }
+  .nothingFound{
+    margin-left: 0;
+    text-align: center;
   }
 
 
