@@ -1,5 +1,6 @@
 <template>
   <header class="header">
+    <h1 class="rickStyle">Rick and Morty Character Search</h1>
     <search-input @input="debouncedSearch"></search-input>
   </header>
   <div class="container">
@@ -17,7 +18,7 @@
     <main>
       <BaseGrid>
         <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
-        <h1 v-show=nothing>Nothing Found</h1>
+        <h3 class=nothingFound v-show=nothing>Nothing Found</h3>
       </BaseGrid>
     </main>
   </div>
@@ -47,14 +48,20 @@ export default {
   watch: {
     query(){
       this.applyFilter()
+
     },
     selectedFilter() {
       this.debouncedSearch();
     }
   },
+  mounted(){
+    // invocar los métodos
+    this.search();
+  },
   methods: {
 
     search(event) {
+
       if (event && event.target) {
         this.query = event.target.value;
       }
@@ -117,9 +124,9 @@ export default {
       return statusList
     },
     nothing() {
-      let nothing = true;
-        if (this.visibleCharacters.length !== 0) {
-          nothing = false;
+      let nothing = false;
+        if (this.visibleCharacters.length === 0) {
+          nothing = true;
         }
 
       return nothing;
@@ -132,28 +139,75 @@ export default {
 <style scoped>
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
+.rickStyle {
+  font-family: 'Get Schwifty', cursive;
+  font-size: 3rem;
+  text-shadow: 2px 2px #000;
+  color: #68a64c;
+  letter-spacing: 2px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.facets h2 {
+  font-family: 'Get Schwifty';
+  font-size: 2rem;
+  margin-top: 0;
+  text-align: center;
+}
+.facets span {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-left: 3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: green;
+}
 
 .filters {
   width: 8rem;
   list-style-type: none;
+
 }
 .filter:hover {
   font-weight: 600;
   cursor: pointer;
 }
 .filter {
-  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.filter label {
+  margin-left: 0.5rem;
+}
+.filter:hover {
+  font-weight: 600;
+  cursor: pointer;
+  color: #68a64c;
 }
 .container {
   display: flex;
 }
+.nothingFound{
+  margin-left: 30rem;
+  color:gray;
+
+}
+
 @media screen and (max-width: 767px) {
   .container {
     display: flex;
     flex-direction: column;
   }
+
+
 }
 </style>

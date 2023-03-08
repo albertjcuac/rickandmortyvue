@@ -15,6 +15,7 @@ export default {
   display: flex;
   flex-flow: row wrap;
   list-style-type: none;
+  justify-content: center;
   gap: 12px;
   width: 100%;
 }

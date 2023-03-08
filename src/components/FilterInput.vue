@@ -1,5 +1,5 @@
 <template>
-  {{ filter }}<input type="radio" :value="filter" @change="applyFilter" name="filters" >
+  {{ filter }}<input class="checkbox" type="radio" :value="filter" @change="applyFilter" name="filters" >
 </template>
 
 <script>
@@ -16,5 +16,8 @@ export default {
 
 
 <style scoped>
+.checkbox{
+  margin-right: 0.5rem;
+}
 
 </style>
