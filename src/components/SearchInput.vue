@@ -22,11 +22,14 @@ export default {
   border-radius: 60px;
   font-size: 1.2rem;
   padding: 1em 1em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1);
   border: 0.1em solid #c7c7c7;
   margin-top:2.6em;
   align-self: center;
 }
-
+.search:focus {
+  outline: none; /* Remueve el outline default */
+  border-color: #39ff14; /* Define el color del borde cuando esta en focus */
+}
 </style>
 

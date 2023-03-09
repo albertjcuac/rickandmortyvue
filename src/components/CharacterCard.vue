@@ -18,8 +18,8 @@ export default {
 .character {
   display: flex;
   flex-flow: column;
-  width: 250px;
-  height: 350px;
+  width: 15rem;
+  height: 22rem;
   border: 1px solid black;
   background-color: whitesmoke;
   border-radius: 50px;

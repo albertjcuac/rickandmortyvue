@@ -32,13 +32,17 @@
       </main>
 
     </div>
+
+  </body>
+  <footer>
     <div class="pagination" id="pagination">
 
       <button class="prev" ref="prevBtn"  @click="previousPage">Previous page</button>
       <span class="page-counter">Page {{currentPage}} of {{totalPages}}</span>
       <button class="next" ref="nextBtn" @click="nextPage">Next page</button>
     </div>
-  </body>
+
+  </footer>
 </template>
 
 <script lang="js">
@@ -210,10 +214,10 @@ export default {
 }
 
 .rickStyle {
-  font-family: 'Get Schwifty', cursive;
+  font-family: Get Schwifty,cursive;
   font-size: 3rem;
   text-shadow: 2px 2px #000;
-  color: #68a64c;
+  color: #4CAF50;
   letter-spacing: 2px;
   text-align: center;
   margin: 2rem 0;
@@ -231,7 +235,7 @@ export default {
   margin-left: 3rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: green;
+  color: #4CAF50;
 }
 
 .filters {
@@ -254,7 +258,7 @@ export default {
 .filter:hover {
   font-weight: 600;
   cursor: pointer;
-  color: #68a64c;
+  color: #39ff14;
 }
 .container {
   display: flex;
@@ -305,6 +309,7 @@ export default {
 }
 .fade-enter-active{
   transition: all .2s ease;
+
 }
 .fade-leave-active {
   transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
