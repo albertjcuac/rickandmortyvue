@@ -25,6 +25,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 0.1em solid #c7c7c7;
   margin-top:2.6em;
+  align-self: center;
 }
 
 </style>

@@ -23,12 +23,15 @@
           <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
 
         </BaseGrid>
-        <div class="pagination" id="pagination">
-          <button class="prev" ref="prevBtn"  @click="previousPage">Previous page</button>
-          <button class="next" ref="nextBtn" @click="nextPage">Next page</button>
-        </div>
+
       </main>
 
+    </div>
+    <div class="pagination" id="pagination">
+
+      <button class="prev" ref="prevBtn"  @click="previousPage">Previous page</button>
+      <span class="page-counter">Page {{currentPage}} of {{totalPages}}</span>
+      <button class="next" ref="nextBtn" @click="nextPage">Next page</button>
     </div>
   </body>
 </template>
@@ -228,7 +231,7 @@ export default {
 
 .filters {
   width: 8rem;
-  list-style-type: none;
+
 
 }
 .filter:hover {
@@ -254,13 +257,22 @@ export default {
 .nothingFound {
   font-size: 1.5rem;
   margin-left: 30rem;
+
   color: gray;
   opacity: 1;
   transition: opacity 1s ease;
 }
+.page-counter {
+  font-size: 1rem;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
 .pagination {
+
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+
 
 }
 .pagination button {
@@ -276,6 +288,7 @@ export default {
   cursor: pointer;
   margin: 0 5px;
 }
+
 
 .pagination button:disabled {
   background-color: #ccc;
@@ -296,7 +309,19 @@ export default {
     margin-left: 0;
     text-align: center;
   }
+  .pagination {
+
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 1rem;
+    margin-right: 1rem;
 
 
-}
+  }
+  .page-counter {
+    font-size: 0.5rem;
+    font-weight: bold;
+    align-self: flex-end;
+  }
+  }
 </style>
