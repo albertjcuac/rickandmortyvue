@@ -50,20 +50,27 @@ export default {
       query:'',
       visibleCharacters:[],
       currentPage : 1,
-      totalPages:0
+      totalPages:0,
+
 
 
 
     };
   },
   watch: {
+
     query(){
       this.applyFilter()
 
     },
+
+
+
     selectedFilter() {
       this.debouncedSearch();
-    }
+    },
+
+
   },
   mounted(){
     this.search();
@@ -98,6 +105,7 @@ export default {
 
             });
       }
+
     },
     applyFilter(event) {
       if (event && event.target) {
@@ -140,6 +148,8 @@ export default {
     },
 
 
+
+
   },
   computed:{
     filters(){
@@ -161,15 +171,20 @@ export default {
 
       return statusList
     },
+
     nothing() {
       let nothing = false;
         if (this.visibleCharacters.length === 0) {
           nothing = true;
+
         }
 
       return nothing;
     }
   },
+
+
+
 
 };
 </script>
@@ -243,7 +258,30 @@ export default {
   opacity: 1;
   transition: opacity 1s ease;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
 
+}
+.pagination button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
 .nothingFound.hide {
   opacity: 0;
 }
