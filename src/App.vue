@@ -23,6 +23,10 @@
           <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
 
         </BaseGrid>
+        <div class="pagination" id="pagination">
+          <button class="prev" ref="prevBtn"  @click="previousPage">Previous page</button>
+          <button class="next" ref="nextBtn" @click="nextPage">Next page</button>
+        </div>
       </main>
 
     </div>
@@ -45,6 +49,8 @@ export default {
       apiUrl:'https://rickandmortyapi.com/api/character/',
       query:'',
       visibleCharacters:[],
+      currentPage : 1,
+      totalPages:0
 
 
 
@@ -69,21 +75,25 @@ export default {
       if (event && event.target) {
         this.query = event.target.value;
       }
-      let url = this.apiUrl + '?name=' + this.query;
+      let url = this.apiUrl + '?name=' + this.query ;
       this.visibleCharacters = [];
 
       if (this.selectedFilter === 'all') {
-        fetch(url)
+        fetch(url+'&page='+this.currentPage)
             .then(response => response.json())
             .then(data => {
+              this.totalPages = data.info.pages;
+              this.updatePageButtons();
               this.visibleCharacters = data.results;
               this.characters = data.results;
 
             });
       } else {
-        fetch(url + `&status=` + this.selectedFilter)
+        fetch(url + `&status=` + this.selectedFilter+'&page='+this.currentPage)
             .then(response => response.json())
             .then(data => {
+              this.totalPages = data.info.pages;
+              this.updatePageButtons();
               this.visibleCharacters = data.results;
 
             });
@@ -104,6 +114,30 @@ export default {
       }, 400);
     },
 
+    updatePageButtons() {
+      //desactivar prevBtn en la primera página
+      if (this.currentPage === 1) {
+        this.$refs.prevBtn.disabled = true;
+      } else {
+        this.$refs.prevBtn.disabled = false;
+      }
+      //desactivar nextBtn en la última página
+      if (this.currentPage === this.totalPages) {
+        this.$refs.nextBtn.disabled = true;
+      } else {
+        this.$refs.nextBtn.disabled = false;
+      }
+    },
+    nextPage(){
+      this.currentPage++;
+      this.debouncedSearch();
+
+    },
+    previousPage(){
+      this.currentPage--;
+      this.debouncedSearch();
+
+    },
 
 
   },
