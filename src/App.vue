@@ -18,9 +18,14 @@
         </ul>
       </aside>
       <main>
+
+
         <BaseGrid>
-          <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
-          <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
+
+          <transition-group name="fade" appear>
+            <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
+            </transition-group>
+            <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
 
         </BaseGrid>
 
@@ -43,7 +48,7 @@ import BaseGrid from "@/components/BaseGrid.vue";
 import FilterInput from "@/components/FilterInput.vue";
 
 export default {
-  components: {FilterInput, BaseGrid, SearchInput, CharacterCard},
+  components: {FilterInput, BaseGrid, SearchInput, CharacterCard, },
 
   data() {
     return {
@@ -298,6 +303,20 @@ export default {
 .nothingFound.hide {
   opacity: 0;
 }
+.fade-enter-active{
+  transition: all .5s ease;
+}
+.fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+
 
 @media screen and (max-width: 767px) {
   .container {
