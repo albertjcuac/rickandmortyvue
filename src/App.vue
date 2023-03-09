@@ -304,15 +304,15 @@ export default {
   opacity: 0;
 }
 .fade-enter-active{
-  transition: all .5s ease;
+  transition: all .2s ease;
 }
 .fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 
 .fade-enter,
 .fade-leave-to {
-  transform: translateX(20px);
+  transform: translateX(40px);
   opacity: 0;
 }
 
