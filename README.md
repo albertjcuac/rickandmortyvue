@@ -1,6 +1,8 @@
-# rickapivue
+# Search experience consuming the Rick and Morty API with Vue 
 
-This template should help get you started developing with Vue 3 in Vite.
+Second challenge as an academy fellow in Empathy.co, there are two branches:
+-main: contains the challenge implemented with Vue.
+-vuex; contains the code from main migrated to vuex.
 
 ## Recommended IDE Setup
 
