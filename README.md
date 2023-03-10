@@ -1,8 +1,8 @@
 # Search experience consuming the Rick and Morty API with Vue 
 
 Second challenge as an academy fellow in Empathy.co, there are two branches:
--main: contains the challenge implemented with Vue.
--vuex; contains the code from main migrated to vuex.
+- main: contains the challenge implemented with Vue.
+- vuex; contains the code from main migrated to vuex.
 
 ## Recommended IDE Setup
 
