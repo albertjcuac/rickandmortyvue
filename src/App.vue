@@ -79,26 +79,11 @@ export default {
       this.$store.commit('setVisibleCharacters',visibleChar);
 
       if (this.selectedFilter === 'all') {
-        fetch(url+'&page='+this.currentPage)
-            .then(response => response.json())
-            .then(data => {
-              this.$store.commit('setTotalPages',data.info.pages);
-              this.updatePageButtons();
-              this.$store.commit('setVisibleCharacters',data.results);
-              this.$store.commit('setCharacters',data.results);
-
-            });
+          this.$store.dispatch('fetchAllCharacters',url)
       } else {
-        fetch(url + `&status=` + this.selectedFilter+'&page='+this.currentPage)
-            .then(response => response.json())
-            .then(data => {
-              this.$store.commit('setTotalPages',data.info.pages);
-              this.updatePageButtons();
-              this.$store.commit('setVisibleCharacters',data.results);
-
-            });
+        this.$store.dispatch('fetchFilteredCharacters',url)
       }
-
+      this.updatePageButtons();
     },
 
     debouncedSearch(event) {

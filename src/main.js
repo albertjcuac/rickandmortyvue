@@ -67,17 +67,25 @@ actions:{
 
     },
 
-   async fetchAllCharacters({commit},url,currentPage){
-       fetch(url+'&page='+currentPage)
+   async fetchAllCharacters({commit,state},url){
+       fetch(url+'&page='+state.currentPage)
            .then(response => response.json())
            .then(data => {
-               this.totalPages = data.info.pages;
-               this.updatePageButtons();
+               commit('setTotalPages',data.info.pages);
                commit('setVisibleCharacters',data.results);
                commit('setCharacters',data.results);
 
            });
 
+    },
+    async fetchFilteredCharacters({commit,state},url){
+        fetch(url + `&status=` + state.selectedFilter+'&page='+state.currentPage)
+            .then(response => response.json())
+            .then(data => {
+                commit('setTotalPages',data.info.pages);
+                commit('setVisibleCharacters',data.results);
+
+            });
     }
 
 }
