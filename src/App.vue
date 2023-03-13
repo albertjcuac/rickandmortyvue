@@ -5,7 +5,6 @@
       <search-input @input="debouncedSearch"></search-input>
     </header>
     <div class="container">
-
       <aside class="facets">
         <h2>Filters</h2>
         <span>Status</span>
@@ -18,15 +17,11 @@
         </ul>
       </aside>
       <main>
-
-
         <BaseGrid>
-
           <transition-group name="fade" appear>
             <CharacterCard v-for="character in visibleCharacters " v-bind:character="character">  </CharacterCard>
             </transition-group>
             <h3 class="nothingFound" :class="{ hide: !nothing }">Nothing Found</h3>
-
         </BaseGrid>
 
       </main>
@@ -56,7 +51,7 @@ export default {
 
   data() {
     return {
-      characters: [],
+
       selectedFilter: 'all',
       apiUrl:'https://rickandmortyapi.com/api/character/',
       query:'',
@@ -104,7 +99,7 @@ export default {
               this.totalPages = data.info.pages;
               this.updatePageButtons();
               this.visibleCharacters = data.results;
-              this.characters = data.results;
+              this.$store.commit('setCharacters',data.results);
 
             });
       } else {
@@ -164,6 +159,11 @@ export default {
 
   },
   computed:{
+
+    characters(){
+      return this.$store.getters['getCharacters']
+    },
+
     filters(){
       let visibleStatus = new Set()
       let statusList;
