@@ -52,8 +52,7 @@ export default {
   data() {
     return {
       apiUrl:'https://rickandmortyapi.com/api/character/',
-      currentPage : 1,
-      totalPages:0,
+
 
     };
   },
@@ -83,7 +82,7 @@ export default {
         fetch(url+'&page='+this.currentPage)
             .then(response => response.json())
             .then(data => {
-              this.totalPages = data.info.pages;
+              this.$store.commit('setTotalPages',data.info.pages);
               this.updatePageButtons();
               this.$store.commit('setVisibleCharacters',data.results);
               this.$store.commit('setCharacters',data.results);
@@ -93,7 +92,7 @@ export default {
         fetch(url + `&status=` + this.selectedFilter+'&page='+this.currentPage)
             .then(response => response.json())
             .then(data => {
-              this.totalPages = data.info.pages;
+              this.$store.commit('setTotalPages',data.info.pages);
               this.updatePageButtons();
               this.$store.commit('setVisibleCharacters',data.results);
 
@@ -126,12 +125,12 @@ export default {
       }
     },
     nextPage(){
-      this.currentPage++;
+      this.$store.dispatch('increasePage')
       this.debouncedSearch();
 
     },
     previousPage(){
-      this.currentPage--;
+      this.$store.dispatch('decreasePage')
       this.debouncedSearch();
 
     },
@@ -154,6 +153,13 @@ export default {
     query(){
 
       return this.$store.getters['getQuery']
+    },
+    currentPage(){
+      return this.$store.getters['getCurrentPage']
+
+    },
+    totalPages(){
+      return this.$store.getters['getTotalPages']
     },
 
 

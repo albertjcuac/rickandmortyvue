@@ -7,7 +7,9 @@ state:{
     characters: [],
     selectedFilter: 'all',
     visibleCharacters:[],
-    query:''
+    query:'',
+    currentPage : 1,
+    totalPages:0,
 },
 mutations:{
     setCharacters(state, characters){
@@ -24,6 +26,12 @@ mutations:{
     setQuery(state, query){
         state.query = query
     },
+    setCurrentPage(state, currentPage){
+        state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages){
+        state.totalPages = totalPages
+    },
 },
 getters:{
     getCharacters(state){
@@ -37,9 +45,42 @@ getters:{
     },
     getQuery(state){
         return state.query
+    },
+    getCurrentPage(state){
+        return state.currentPage
+    },
+    getTotalPages(state){
+        return state.totalPages
     }
-}
+},
+actions:{
+    decreasePage({commit,state}){
+        let page=state.currentPage-1;
+        commit('setCurrentPage',page)
 
+    },
+
+    increasePage({commit,state}){
+        let page=state.currentPage+1;
+        commit('setCurrentPage',page)
+
+
+    },
+
+   async fetchAllCharacters({commit},url,currentPage){
+       fetch(url+'&page='+currentPage)
+           .then(response => response.json())
+           .then(data => {
+               this.totalPages = data.info.pages;
+               this.updatePageButtons();
+               commit('setVisibleCharacters',data.results);
+               commit('setCharacters',data.results);
+
+           });
+
+    }
+
+}
 
 
 });
