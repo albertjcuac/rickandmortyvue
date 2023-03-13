@@ -9,7 +9,7 @@ export default {
   name: 'SearchInput',
   methods: {
     search(event) {
-      this.$emit('input', event);
+      this.$store.commit('setQuery',event.target.value)
 
     }
   }

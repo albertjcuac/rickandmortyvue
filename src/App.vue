@@ -2,7 +2,7 @@
   <body>
     <header class="header">
       <h1 class="rickStyle">Rick and Morty Character Search</h1>
-      <search-input @input="debouncedSearch"></search-input>
+      <search-input></search-input>
     </header>
     <div class="container">
       <aside class="facets">
@@ -58,7 +58,9 @@ export default {
     };
   },
   watch: {
-
+    query(){
+      this.debouncedSearch();
+    },
 
     selectedFilter() {
       this.debouncedSearch();
@@ -71,11 +73,8 @@ export default {
   },
   methods: {
 
-    search(event) {
+    search() {
 
-      if (event && event.target) {
-        this.$store.commit('setQuery',event.target.value);
-      }
       let url = this.apiUrl + '?name=' + this.query ;
       let visibleChar = [];
       this.$store.commit('setVisibleCharacters',visibleChar);
