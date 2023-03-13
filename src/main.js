@@ -4,11 +4,16 @@ import {createStore} from "vuex";
 
 const store = createStore({
 state:{
-    characters: []
+    characters: [],
+    selectedFilter: 'all'
 },
 mutations:{
     setCharacters(state, characters){
         state.characters=characters
+
+    },
+    setSelectedFilter(state, filter){
+        state.selectedFilter=filter
 
     }
 
@@ -16,6 +21,9 @@ mutations:{
 getters:{
     getCharacters(state){
         return state.characters
+    },
+    getSelectedFilter(state){
+        return state.selectedFilter
     }
 
 }

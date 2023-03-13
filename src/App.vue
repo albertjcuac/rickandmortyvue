@@ -11,7 +11,7 @@
         <ul class="filters">
           <li v-for="filter in filters" class="filter">
             <label>
-              <FilterInput v-bind:filter="filter" @status="applyFilter"> </FilterInput>
+              <FilterInput v-bind:filter="filter" > </FilterInput>
             </label>
           </li>
         </ul>
@@ -52,7 +52,6 @@ export default {
   data() {
     return {
 
-      selectedFilter: 'all',
       apiUrl:'https://rickandmortyapi.com/api/character/',
       query:'',
       visibleCharacters:[],
@@ -114,12 +113,7 @@ export default {
       }
 
     },
-    applyFilter(event) {
-      if (event && event.target) {
-        this.selectedFilter = event.target.value;
-      }
 
-    },
     debouncedSearch(event) {
       const self = this;
       clearTimeout(self.searchTimeout);
@@ -163,6 +157,10 @@ export default {
     characters(){
       return this.$store.getters['getCharacters']
     },
+    selectedFilter(){
+      return this.$store.getters['getSelectedFilter']
+    },
+
 
     filters(){
       let visibleStatus = new Set()

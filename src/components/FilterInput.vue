@@ -7,8 +7,8 @@ export default {
   name: "FilterInput",
   props: ["filter"],
   methods: {
-    applyFilter(event){
-      this.$emit('status', event);
+    applyFilter(){
+      this.$store.commit('setSelectedFilter',this.filter)
     }
   }
 }
