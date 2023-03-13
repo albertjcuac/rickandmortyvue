@@ -58,10 +58,14 @@ export default {
   },
   watch: {
     query(){
+
       this.debouncedSearch();
+
+
     },
 
     selectedFilter() {
+
       this.debouncedSearch();
     },
 
@@ -77,10 +81,8 @@ export default {
       let url = this.apiUrl + '?name=' + this.query ;
       let visibleChar = [];
       this.$store.commit('setVisibleCharacters',visibleChar);
-
-      if (this.selectedFilter === 'all') {
-          this.$store.dispatch('fetchAllCharacters',url)
-      } else {
+      this.$store.dispatch('fetchAllCharacters',url) //para dar prioridad a busqueda frente a filtros en cuanto a filtros dinámicos
+      if (this.selectedFilter !== 'all') {
         this.$store.dispatch('fetchFilteredCharacters',url)
       }
       this.updatePageButtons();
