@@ -4,29 +4,21 @@ Second challenge as an academy fellow in Empathy.co, there are two branches:
 - main: contains the challenge implemented with Vue.
 - vuex: contains the code from main migrated to Vuex.
 
+# VueX project challenge
+
 ## Prerequisites:
 
-* Create a basic Vue project with `create-vue`.
-* We would use as a reference [this](https://github.com/alonsogb/academy-path) project.
+* Use your `vue` project created in the previous session.
+* Create a new branch in your project to develop this challenge instead of creating a new project. Call it: `vuex-chanllenge`
 
 ## Steps to complete:
 
-1. Create Basic HTML and CSS structure in App.vue without any logic.
-2. Modify text input so it makes API calls to [rick & morty API](https://rickandmortyapi.com/) using the
-   [filter endpoint](https://rickandmortyapi.com/documentation/#filter-characters). Save the results and print the characters by console.
-3. Paint dynamically with `v-for` the characters with its name, status and image.
-4. Modify the filters so they use the filters inside characters and print them dynamically with `v-for`. Make the filters work also.
-5. Move each filter, character card and input to a separate component (e.g `StatusFilter`,`CharacterCard`,`SearchInput`) but ensure the
-   application works properly after these changes.
-6. Make one API call per filter, following API specification.
-7. Put `CharacterCard` inside a `Grid` component to use `slots`.
+1. Create a basic store and move some data from your components to the store.
+2. Use getters and the state to retrieve the info from the store.
+3. Create mutations that modifies the state.
+4. Create an action to call the api.
+5. Divide the store en two modules, these modules should interact between them. Use `namespaced:true`.
 
-## Bonus track
-
-8. Create `FilterList` component that made the filter rendered interchangeable.
-
-```vue
-// some pseudocode that makes it more clear the point.
 
 <FilterList :list="filters">
 <RadioFilter/>
