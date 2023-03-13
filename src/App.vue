@@ -51,10 +51,8 @@ export default {
 
   data() {
     return {
-
       apiUrl:'https://rickandmortyapi.com/api/character/',
       query:'',
-      visibleCharacters:[],
       currentPage : 1,
       totalPages:0,
 
@@ -65,10 +63,6 @@ export default {
   },
   watch: {
 
-    query(){
-      this.applyFilter()
-
-    },
 
 
 
@@ -89,7 +83,8 @@ export default {
         this.query = event.target.value;
       }
       let url = this.apiUrl + '?name=' + this.query ;
-      this.visibleCharacters = [];
+      let visibleChar = [];
+      this.$store.commit('setVisibleCharacters',visibleChar);
 
       if (this.selectedFilter === 'all') {
         fetch(url+'&page='+this.currentPage)
@@ -97,7 +92,7 @@ export default {
             .then(data => {
               this.totalPages = data.info.pages;
               this.updatePageButtons();
-              this.visibleCharacters = data.results;
+              this.$store.commit('setVisibleCharacters',data.results);
               this.$store.commit('setCharacters',data.results);
 
             });
@@ -107,7 +102,7 @@ export default {
             .then(data => {
               this.totalPages = data.info.pages;
               this.updatePageButtons();
-              this.visibleCharacters = data.results;
+              this.$store.commit('setVisibleCharacters',data.results);
 
             });
       }
@@ -159,6 +154,9 @@ export default {
     },
     selectedFilter(){
       return this.$store.getters['getSelectedFilter']
+    },
+    visibleCharacters(){
+      return this.$store.getters['getVisibleCharacters']
     },
 
 
