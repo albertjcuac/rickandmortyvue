@@ -52,18 +52,12 @@ export default {
   data() {
     return {
       apiUrl:'https://rickandmortyapi.com/api/character/',
-      query:'',
       currentPage : 1,
       totalPages:0,
-
-
-
 
     };
   },
   watch: {
-
-
 
 
     selectedFilter() {
@@ -80,7 +74,7 @@ export default {
     search(event) {
 
       if (event && event.target) {
-        this.query = event.target.value;
+        this.$store.commit('setQuery',event.target.value);
       }
       let url = this.apiUrl + '?name=' + this.query ;
       let visibleChar = [];
@@ -157,6 +151,10 @@ export default {
     },
     visibleCharacters(){
       return this.$store.getters['getVisibleCharacters']
+    },
+    query(){
+
+      return this.$store.getters['getQuery']
     },
 
 

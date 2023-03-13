@@ -10,6 +10,7 @@ export default {
   methods: {
     search(event) {
       this.$emit('input', event);
+
     }
   }
 }

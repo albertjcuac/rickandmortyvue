@@ -6,7 +6,8 @@ const store = createStore({
 state:{
     characters: [],
     selectedFilter: 'all',
-    visibleCharacters:[]
+    visibleCharacters:[],
+    query:''
 },
 mutations:{
     setCharacters(state, characters){
@@ -20,7 +21,9 @@ mutations:{
     setVisibleCharacters(state, visibleChar){
         state.visibleCharacters = visibleChar
     },
-
+    setQuery(state, query){
+        state.query = query
+    },
 },
 getters:{
     getCharacters(state){
@@ -31,8 +34,10 @@ getters:{
     },
     getVisibleCharacters(state){
         return state.visibleCharacters
+    },
+    getQuery(state){
+        return state.query
     }
-
 }
 
 
