@@ -8,7 +8,7 @@ export default {
   props: ["filter"],
   methods: {
     applyFilter(){
-      this.$store.commit('setSelectedFilter',this.filter)
+      this.$store.commit('search/setSelectedFilter',this.filter)
     }
   }
 }

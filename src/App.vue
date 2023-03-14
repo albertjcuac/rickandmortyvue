@@ -80,10 +80,10 @@ export default {
 
       let url = this.apiUrl + '?name=' + this.query ;
       let visibleChar = [];
-      this.$store.commit('setVisibleCharacters',visibleChar);
-      this.$store.dispatch('fetchAllCharacters',url) //para dar prioridad a busqueda frente a filtros en cuanto a filtros dinámicos
+      this.$store.commit('characters/setVisibleCharacters',visibleChar);
+      this.$store.dispatch('characters/fetchAllCharacters',url) //para dar prioridad a busqueda frente a filtros en cuanto a filtros dinámicos
       if (this.selectedFilter !== 'all') {
-        this.$store.dispatch('fetchFilteredCharacters',url)
+        this.$store.dispatch('characters/fetchFilteredCharacters',url)
       }
       this.updatePageButtons();
     },
@@ -112,12 +112,12 @@ export default {
       }
     },
     nextPage(){
-      this.$store.dispatch('increasePage')
+      this.$store.dispatch('characters/increasePage')
       this.debouncedSearch();
 
     },
     previousPage(){
-      this.$store.dispatch('decreasePage')
+      this.$store.dispatch('characters/decreasePage')
       this.debouncedSearch();
 
     },
@@ -129,24 +129,24 @@ export default {
   computed:{
 
     characters(){
-      return this.$store.getters['getCharacters']
+      return this.$store.getters['characters/getCharacters']
     },
     selectedFilter(){
-      return this.$store.getters['getSelectedFilter']
+      return this.$store.getters['search/getSelectedFilter']
     },
     visibleCharacters(){
-      return this.$store.getters['getVisibleCharacters']
+      return this.$store.getters['characters/getVisibleCharacters']
     },
     query(){
 
-      return this.$store.getters['getQuery']
+      return this.$store.getters['search/getQuery']
     },
     currentPage(){
-      return this.$store.getters['getCurrentPage']
+      return this.$store.getters['characters/getCurrentPage']
 
     },
     totalPages(){
-      return this.$store.getters['getTotalPages']
+      return this.$store.getters['characters/getTotalPages']
     },
 
 
