@@ -11,6 +11,7 @@ state: ()=> ({
 
 actions:{
     async fetchAllCharacters({commit,state},url){
+
         fetch(url+'&page='+state.currentPage)
             .then(response => response.json())
             .then(data => {
@@ -22,6 +23,7 @@ actions:{
 
     },
     async fetchFilteredCharacters({commit,state,rootGetters,},url){
+
         fetch(url + `&status=` + rootGetters['search/getSelectedFilter']+'&page='+state.currentPage)
             .then(response => response.json())
             .then(data => {
@@ -29,6 +31,7 @@ actions:{
                 commit('setVisibleCharacters',data.results);
 
             });
+
     },
     decreasePage({commit,state}){
         let page=state.currentPage-1;

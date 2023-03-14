@@ -98,17 +98,20 @@ export default {
     },
 
     updatePageButtons() {
-      //desactivar prevBtn en la primera página
+      // desactivar prevBtn en la primera página
       if (this.currentPage === 1) {
         this.$refs.prevBtn.disabled = true;
       } else {
         this.$refs.prevBtn.disabled = false;
       }
-      //desactivar nextBtn en la última página
-      if (this.currentPage === this.totalPages) {
+      // desactivar nextBtn en la última página
+      if (this.currentPage === this.totalPages ) {
         this.$refs.nextBtn.disabled = true;
       } else {
         this.$refs.nextBtn.disabled = false;
+      }
+      if(this.totalPages===1){
+        this.$refs.nextBtn.disabled = true;
       }
     },
     nextPage(){
@@ -172,13 +175,13 @@ export default {
 
     nothing() {
       let nothing = false;
-        if (this.visibleCharacters.length === 0) {
-          nothing = true;
+      if (this.visibleCharacters.length === 0) {
+        nothing = true;
 
-        }
-
+      }
       return nothing;
-    }
+    },
+
   },
 
 
