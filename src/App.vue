@@ -61,15 +61,20 @@ export default {
 
       this.debouncedSearch();
 
-
     },
 
     selectedFilter() {
 
       this.debouncedSearch();
+
+    },
+    totalPages(){
+      this.updatePageButtons();
     },
 
-
+    currentPage(){
+      this.updatePageButtons();
+    }
   },
   mounted(){
     this.search();
@@ -85,7 +90,7 @@ export default {
       if (this.selectedFilter !== 'all') {
         this.$store.dispatch('characters/fetchFilteredCharacters',url)
       }
-      this.updatePageButtons();
+
     },
 
     debouncedSearch(event) {
@@ -118,10 +123,12 @@ export default {
       this.$store.dispatch('characters/increasePage')
       this.debouncedSearch();
 
+
     },
     previousPage(){
       this.$store.dispatch('characters/decreasePage')
       this.debouncedSearch();
+
 
     },
 
