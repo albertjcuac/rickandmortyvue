@@ -15,6 +15,7 @@ actions:{
         fetch(url+'&page='+state.currentPage)
             .then(response => response.json())
             .then(data => {
+
                 commit('setTotalPages',data.info.pages);
                 commit('setVisibleCharacters',data.results);
                 commit('setCharacters',data.results);

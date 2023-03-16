@@ -74,7 +74,9 @@ export default {
 
     currentPage(){
       this.updatePageButtons();
-    }
+    },
+
+
   },
   mounted(){
     this.search();
@@ -115,9 +117,11 @@ export default {
       } else {
         this.$refs.nextBtn.disabled = false;
       }
-      if(this.totalPages===1){
+      if(this.totalPages===1 ||this.nothing){
+        this.$refs.nextBtn.disabled = true;
         this.$refs.nextBtn.disabled = true;
       }
+
     },
     nextPage(){
       this.$store.dispatch('characters/increasePage')
