@@ -3,7 +3,7 @@
 Second challenge as an academy fellow in Empathy.co, there are two branches:
 - main: contains the challenge implemented with Vue.
 - vuex-challenge: contains the code from main migrated to Vuex. [demo](https://albertjcuac.github.io/rickandmortyvue/)
--TypeScript-challenge: contains the code from vuex-challenge but using TypeScript
+- TypeScript-challenge: contains the code from vuex-challenge but using TypeScript
 
 ## Prerequisites:
 
