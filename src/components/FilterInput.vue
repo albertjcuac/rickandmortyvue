@@ -2,8 +2,10 @@
   {{ filter }}<input class="checkbox" type="radio" :value="filter" @change="applyFilter" name="filters" >
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
+
   name: "FilterInput",
   props: ["filter"],
   methods: {
@@ -11,7 +13,7 @@ export default {
       this.$store.commit('search/setSelectedFilter',this.filter)
     }
   }
-}
+})
 </script>
 
 
