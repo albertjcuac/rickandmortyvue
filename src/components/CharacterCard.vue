@@ -13,16 +13,23 @@
   </article>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "CharacterCard",
-  props: ["character"],
+  props: {
+    character: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
 
     }
   }
-}
+})
 </script>
 
 <style scoped>

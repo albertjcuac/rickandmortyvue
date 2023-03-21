@@ -4,13 +4,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import {store} from "@/store/store";
+
 export default defineComponent({
 
   name: "FilterInput",
-  props: ["filter"],
+  props: {
+    filter: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     applyFilter(){
-      this.$store.commit('search/setSelectedFilter',this.filter)
+      store.commit('search/setSelectedFilter',this.filter)
     }
   }
 })
