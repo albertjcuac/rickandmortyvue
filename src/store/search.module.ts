@@ -1,65 +1,40 @@
 
-import { State } from "vue";
-import { Dispatch, Commit } from "vuex";
-import { Store } from 'vuex'
+import { MutationTree, GetterTree, Module } from 'vuex';
 
-
-declare module '@vue/runtime-core' {
-    interface State {
-        selectedFilter: 'all',
-        query:'',
-
-    }
-    interface ComponentCustomProperties {
-        $store: Store<State>|Store<Commit>|Store<Dispatch>
-    }
+interface SearchState {
+    selectedFilter: string;
+    query: string;
 }
 
-
-export const searchModule ={
-
-
-
-namespaced:true,
-state:()=>({
+const state: SearchState = {
     selectedFilter: 'all',
-    query:'',
+    query: '',
+};
 
-
-
-}),
-mutations:{
-
-    setSelectedFilter(state, filter){
-        state.selectedFilter=filter
-
+const mutations: MutationTree<SearchState> = {
+    setSelectedFilter(state, filter: string) {
+        state.selectedFilter = filter;
     },
 
-    setQuery(state, query){
-        state.query = query
+    setQuery(state, query: string) {
+        state.query = query;
     },
+};
 
-
-},
-
-getters:{
-    getSelectedFilter(state){
-        return state.selectedFilter
+const getters: GetterTree<SearchState, any> = {
+    getSelectedFilter(state) {
+        return state.selectedFilter;
     },
-
-    getQuery(state){
-        return state.query
+    getQuery(state) {
+        return state.query;
     },
-
-
-},
-
+};
 
 
 
-
-
-
-
-
-}
+export const searchModule: Module<SearchState, any> = {
+    namespaced: true,
+    state,
+    mutations,
+    getters,
+};
