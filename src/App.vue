@@ -40,97 +40,99 @@
   </footer>
 </template>
 
-<script lang="js">
+<script lang="ts">
 import CharacterCard from "@/components/CharacterCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
 import FilterInput from "@/components/FilterInput.vue";
+import {defineComponent} from "vue";
+import {store} from "@/store/store";
 
-export default {
+export default  defineComponent({
   components: {FilterInput, BaseGrid, SearchInput, CharacterCard, },
 
   data() {
     return {
       apiUrl:'https://rickandmortyapi.com/api/character/',
+      searchTimeout:0
 
 
     };
   },
   watch: {
-    query(){
+    query():void{
 
       this.debouncedSearch();
 
     },
 
-    selectedFilter() {
+    selectedFilter():void {
 
       this.debouncedSearch();
 
     },
-    totalPages(){
+    totalPages():void{
       this.updatePageButtons();
     },
 
-    currentPage(){
+    currentPage():void{
       this.updatePageButtons();
     },
-
 
   },
-  mounted(){
+  mounted():void{
     this.search();
   },
   methods: {
 
-    search() {
+    search():void {
 
       let url = this.apiUrl + '?name=' + this.query ;
-      let visibleChar = [];
-      this.$store.commit('characters/setVisibleCharacters',visibleChar);
-      this.$store.dispatch('characters/fetchAllCharacters',url) //para dar prioridad a busqueda frente a filtros en cuanto a filtros dinámicos
+      let visibleChar:any[] = [];
+      store.commit('characters/setVisibleCharacters',visibleChar);
+      store.dispatch('characters/fetchAllCharacters',url) //para dar prioridad a busqueda frente a filtros en cuanto a filtros dinámicos
       if (this.selectedFilter !== 'all') {
-        this.$store.dispatch('characters/fetchFilteredCharacters',url)
+        store.dispatch('characters/fetchFilteredCharacters',url)
       }
 
     },
 
-    debouncedSearch(event) {
-      const self = this;
-      clearTimeout(self.searchTimeout);
+    debouncedSearch():void {
 
-      self.searchTimeout = setTimeout(() => {
-        self.search(event); // Pasar el evento a la función search
+      clearTimeout(this.searchTimeout);
+
+      this.searchTimeout = setTimeout(() => {
+        this.search(); // Pasar el evento a la función search
       }, 400);
     },
 
-    updatePageButtons() {
+    updatePageButtons():void {
       // desactivar prevBtn en la primera página
       if (this.currentPage === 1) {
-        this.$refs.prevBtn.disabled = true;
+        (this.$refs.prevBtn as HTMLButtonElement).disabled = true;
       } else {
-        this.$refs.prevBtn.disabled = false;
+        (this.$refs.prevBtn as HTMLButtonElement).disabled= false;
       }
       // desactivar nextBtn en la última página
       if (this.currentPage === this.totalPages ) {
-        this.$refs.nextBtn.disabled = true;
+        (this.$refs.nextBtn as HTMLButtonElement).disabled= true;
       } else {
-        this.$refs.nextBtn.disabled = false;
+        (this.$refs.nextBtn as HTMLButtonElement).disabled = false;
       }
       if(this.totalPages===1 ||this.nothing){
-        this.$refs.nextBtn.disabled = true;
-        this.$refs.nextBtn.disabled = true;
+        (this.$refs.nextBtn as HTMLButtonElement).disabled= true;
+        (this.$refs.nextBtn as HTMLButtonElement).disabled = true;
       }
 
     },
-    nextPage(){
-      this.$store.dispatch('characters/increasePage')
+    nextPage(event:Event):void{
+      store.dispatch('characters/increasePage')
       this.debouncedSearch();
 
 
     },
-    previousPage(){
-      this.$store.dispatch('characters/decreasePage')
+    previousPage(event:Event):void{
+      store.dispatch('characters/decreasePage')
       this.debouncedSearch();
 
 
@@ -142,31 +144,31 @@ export default {
   },
   computed:{
 
-    characters(){
-      return this.$store.getters['characters/getCharacters']
+    characters():any[]{
+      return store.getters['characters/getCharacters']
     },
-    selectedFilter(){
-      return this.$store.getters['search/getSelectedFilter']
+    selectedFilter():string{
+      return store.getters['search/getSelectedFilter']
     },
-    visibleCharacters(){
-      return this.$store.getters['characters/getVisibleCharacters']
+    visibleCharacters():any[]{
+      return store.getters['characters/getVisibleCharacters']
     },
-    query(){
+    query():string{
 
-      return this.$store.getters['search/getQuery']
+      return store.getters['search/getQuery']
     },
-    currentPage(){
-      return this.$store.getters['characters/getCurrentPage']
+    currentPage():number{
+      return store.getters['characters/getCurrentPage']
 
     },
-    totalPages(){
-      return this.$store.getters['characters/getTotalPages']
+    totalPages():number{
+      return store.getters['characters/getTotalPages']
     },
 
 
-    filters(){
-      let visibleStatus = new Set()
-      let statusList;
+    filters():any[]{
+      let visibleStatus= new Set()
+      let statusList:any[];
       if(typeof this.characters!=='undefined'){
         for (let character of this.characters) {
           visibleStatus.add(character.status)
@@ -184,7 +186,7 @@ export default {
       return statusList
     },
 
-    nothing() {
+    nothing():boolean {
       let nothing = false;
       if (this.visibleCharacters.length === 0) {
         nothing = true;
@@ -198,7 +200,7 @@ export default {
 
 
 
-};
+});
 </script>
 
 <style scoped>
